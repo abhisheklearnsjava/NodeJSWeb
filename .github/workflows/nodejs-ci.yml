@@ -46,9 +46,8 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v2
         with:
           args: >
-            -Dsonar.projectKey=NodeJSWeb
+            -Dsonar.projectKey=abhisheklearnsjava_NodeJSWeb
             -Dsonar.organization=abhisheklearnsjava
-            -Dsonar.branch.name=main
         env:
           SONAR_TOKEN: 'f3f4d596399ca42cb726accc8383568d8ed2354d'
 
