@@ -14,7 +14,7 @@ xml2js.parseString(fs.readFileSync(input), (err, result) => {
   suites.forEach(suite => {
     const testcases = suite.testcase || [];
     testcases.forEach(test => {
-      sonarXml += `  <file path="server.js">\n`;
+      sonarXml += `  <file path="server.test.js">\n`;
 
       const duration = Math.round(parseFloat(test.$.time || '0') * 1000);
       const name = test.$.name || 'Unnamed test';
