@@ -51,6 +51,7 @@ jobs:
         with:
           args: >
             -Dsonar.sources=.
+            -Dsonar.tests=.
             -Dsonar.projectKey=abhisheklearnsjava_NodeJSWeb
             -Dsonar.organization=abhisheklearnsjava
             -Dsonar.inclusions=server.js
