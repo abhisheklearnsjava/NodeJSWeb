@@ -42,8 +42,8 @@ jobs:
           name: junit-results
           path: junit.xml
 
-      - name: check coverage report location
-        run: ls -lh coverage/lcov.info
+      - name: Show lcov.info (first few lines)
+        run: head -n 20 coverage/lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
