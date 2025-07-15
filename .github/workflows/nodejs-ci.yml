@@ -54,7 +54,6 @@ jobs:
             -Dsonar.tests=.
             -Dsonar.projectKey=abhisheklearnsjava_NodeJSWeb
             -Dsonar.organization=abhisheklearnsjava
-            -Dsonar.inclusions=server.js
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.verbose=true
             -Dsonar.testExecutionReportPaths=./sonar-test.xml
