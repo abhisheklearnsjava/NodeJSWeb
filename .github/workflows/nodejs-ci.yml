@@ -48,6 +48,7 @@ jobs:
           args: >
             -Dsonar.projectKey=abhisheklearnsjava_NodeJSWeb
             -Dsonar.organization=abhisheklearnsjava
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
         env:
           SONAR_TOKEN: 'f3f4d596399ca42cb726accc8383568d8ed2354d'
 
