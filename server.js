@@ -9,6 +9,7 @@ app.get('/', (req, res) => {
 app.get('/ping', (req, res) => {
   const unused = 42; // ESLint will warn about 'unused' being defined but never used
   const newUnused =30;
+  const password="asd@dfds123";
   res.send('pong');
 });
 
