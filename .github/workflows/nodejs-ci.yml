@@ -46,25 +46,25 @@ jobs:
         run: |
           node convert-junit-to-sonar.js
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          args: >
-            -Dsonar.sources=.
-            -Dsonar.tests=server.test.js
-            -Dsonar.inclusions=server.js
-            -Dsonar.projectKey=abhisheklearnsjava_NodeJSWeb
-            -Dsonar.organization=abhisheklearnsjava
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-            -Dsonar.verbose=true
-            -Dsonar.testExecutionReportPaths=./sonar-test.xml
-        env:
-          SONAR_TOKEN: 'f3f4d596399ca42cb726accc8383568d8ed2354d'
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@v2
+      #   with:
+      #     args: >
+      #       -Dsonar.sources=.
+      #       -Dsonar.tests=server.test.js
+      #       -Dsonar.inclusions=server.js
+      #       -Dsonar.projectKey=abhisheklearnsjava_NodeJSWeb
+      #       -Dsonar.organization=abhisheklearnsjava
+      #       -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      #       -Dsonar.verbose=true
+      #       -Dsonar.testExecutionReportPaths=./sonar-test.xml
+      #   env:
+      #     SONAR_TOKEN: 'f3f4d596399ca42cb726accc8383568d8ed2354d'
 
       - name: Run Snyk
         uses: snyk/actions/node@0.4.0
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_SECRET }}
         with:
           command: test
 
