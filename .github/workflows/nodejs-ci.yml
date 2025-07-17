@@ -62,7 +62,7 @@ jobs:
           SONAR_TOKEN: 'f3f4d596399ca42cb726accc8383568d8ed2354d'
 
       - name: Run Snyk
-        uses: snyk/actions/node@v1
+        uses: snyk/actions/node@0.4.0
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
