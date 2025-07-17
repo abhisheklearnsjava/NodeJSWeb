@@ -61,4 +61,11 @@ jobs:
         env:
           SONAR_TOKEN: 'f3f4d596399ca42cb726accc8383568d8ed2354d'
 
+      - name: Run Snyk
+        uses: snyk/actions/node@v1
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+
     # The workflow will fail if linting or tests fail (non-zero
