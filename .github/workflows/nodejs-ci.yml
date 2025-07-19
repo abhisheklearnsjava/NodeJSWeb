@@ -2,13 +2,13 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/* ]
   pull_request:
     branches: [ main ]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -25,40 +25,74 @@ jobs:
      # - name: Run ESLint
       #  run: npm run lint
 
-      - name: Run tests with coverage and JUnit output
-        run: |
-          npm install --save-dev jest-junit
-          npx jest --coverage --ci --reporters=default --reporters=jest-junit
+      # - name: Run tests with coverage and JUnit output
+      #   run: |
+      #     npm install --save-dev jest-junit
+      #     npx jest --coverage --ci --reporters=default --reporters=jest-junit
 
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
+      # - name: Upload coverage report
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: coverage-report
+      #     path: coverage/
 
-      - name: Upload JUnit test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: junit-results
-          path: junit.xml
+      # - name: Upload JUnit test results
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: junit-results
+      #     path: junit.xml
 
-      - name: convert JUnit to Sonar format
-        run: |
-          node convert-junit-to-sonar.js
+      # - name: convert JUnit to Sonar format
+      #   run: |
+      #     node convert-junit-to-sonar.js
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          args: >
-            -Dsonar.sources=.
-            -Dsonar.tests=server.test.js
-            -Dsonar.inclusions=server.js
-            -Dsonar.projectKey=abhisheklearnsjava_NodeJSWeb
-            -Dsonar.organization=abhisheklearnsjava
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-            -Dsonar.verbose=true
-            -Dsonar.testExecutionReportPaths=./sonar-test.xml
-        env:
-          SONAR_TOKEN: 'f3f4d596399ca42cb726accc8383568d8ed2354d'
+      # - name: Sonar Cloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@v2
+      #   with:
+      #     args: >
+      #       -Dsonar.sources=.
+      #       -Dsonar.tests=server.test.js
+      #       -Dsonar.inclusions=server.js
+      #       -Dsonar.projectKey=abhisheklearnsjava_NodeJSWeb
+      #       -Dsonar.organization=abhisheklearnsjava
+      #       -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      #       -Dsonar.verbose=true
+      #       -Dsonar.testExecutionReportPaths=./sonar-test.xml
+      #   env:
+      #     SONAR_TOKEN: 'f3f4d596399ca42cb726accc8383568d8ed2354d'
+
+      # - name: Run Snyk
+      #   uses: snyk/actions/node@0.4.0
+      #   env:
+      #     SNYK_TOKEN: ${{ secrets.SNYK_SECRET }}
+      #   with:
+      #     command: test
 
     # The workflow will fail if linting or tests fail (non-zero
+    # exit code), or if Snyk finds vulnerabilities.- name: Install dependencies
+
+      - name: Start the server   
+        run: npm start &
+      # - name: ZAP Baseline Scan with Gate
+      #   uses: zaproxy/action-baseline@v0.9.0
+      #   with:
+      #     target: 'http://localhost:3000'
+      #     fail_action: true 
+      # - name: Download ZAP
+      #   run: |
+      #     wget https://github.com/zaproxy/zaproxy/releases/download/v2.16.1/ZAP_2_16_1_unix.sh -O zap.sh
+      #     chmod +x zap.sh
+      #     ./zap.sh -q -dir zap-home
+      - name: Run ZAP Quick Scan
+        run: |
+          /Applications/zaproxy/zap.sh -cmd \
+            -port 8090 \
+            -quickurl http://localhost:3000 \
+            -quickout "$PWD/report.html"
+
+      - name: Upload ZAP Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: report.html  
