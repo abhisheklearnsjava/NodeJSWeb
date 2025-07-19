@@ -78,14 +78,17 @@ jobs:
       #   with:
       #     target: 'http://localhost:3000'
       #     fail_action: true 
-      - name: Download ZAP
+      # - name: Download ZAP
+      #   run: |
+      #     wget https://github.com/zaproxy/zaproxy/releases/download/v2.16.1/ZAP_2_16_1_unix.sh -O zap.sh
+      #     chmod +x zap.sh
+      #     ./zap.sh -q -dir zap-home
+      - name: Run ZAP Quick Scan
         run: |
-          wget https://github.com/zaproxy/zaproxy/releases/download/v2.16.1/ZAP_2_16_1_unix.sh -O zap.sh
-          chmod +x zap.sh
-          ./zap.sh -q -dir zap-home
-      - name: Run ZAP baseline scan (non-Docker)
-        run: |
-          ./zap-home/zap.sh -cmd -quickurl http://localhost:3000 -quickout zap-report.xml -quickprogress
+          /Applications/zaproxy/zap.sh -cmd \
+            -port 8090 \
+            -quickurl http://localhost:3000 \
+            -quickout "$PWD/report.html"
 
       - name: Upload ZAP Report
         if: always()
