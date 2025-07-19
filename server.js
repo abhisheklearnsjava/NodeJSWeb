@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  const name = req.query.name;
+  // XSS Vulnerability: User input is reflected unsanitized
+  res.send(`<h1>Hello, ${name || 'World'}!</h1>`);
 });
 
 // New route with a linting issue: unused variable
