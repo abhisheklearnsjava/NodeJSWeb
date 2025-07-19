@@ -10,7 +10,7 @@ This project is a **Node.js learning repository** focused on building a simple w
 - Code coverage reporting
 - Ready for CI/CD pipeline integration
 
-## Getting Started
+## Getting Started with
 
 1. **Install dependencies:**
    ```bash
