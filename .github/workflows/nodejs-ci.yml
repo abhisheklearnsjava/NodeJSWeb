@@ -80,7 +80,7 @@ jobs:
       #     fail_action: true 
       - name: Download ZAP
         run: |
-          wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2_14_0_unix.sh -O zap.sh
+          wget https://github.com/zaproxy/zaproxy/releases/download/v2.16.1/ZAP_2_16_1_unix.sh -O zap.sh
           chmod +x zap.sh
           ./zap.sh -q -dir zap-home
       - name: Run ZAP baseline scan (non-Docker)
