@@ -46,7 +46,7 @@ jobs:
       #   run: |
       #     node convert-junit-to-sonar.js
 
-      # - name: SonarCloud Scan
+      # - name: Sonar Cloud Scan
       #   uses: SonarSource/sonarcloud-github-action@v2
       #   with:
       #     args: >
