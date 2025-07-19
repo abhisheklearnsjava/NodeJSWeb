@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -69,7 +69,10 @@ jobs:
       #     command: test
 
     # The workflow will fail if linting or tests fail (non-zero
+    # exit code), or if Snyk finds vulnerabilities.- name: Install dependencies
 
+      - name: Start the server   
+        run: npm start
       - name: ZAP Baseline Scan with Gate
         uses: zaproxy/action-baseline@v0.9.0
         with:
